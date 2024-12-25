@@ -31,24 +31,11 @@ pip install git+https://github.com/likeyiyy/ibd-parser.git
 ### Command Line Interface
 
 ```bash
-# Analyze a specific page
-ibd-parser analyze /path/to/table.ibd --page 4
-
-# Show page header only
-ibd-parser header /path/to/table.ibd --page 4
+# Show page header
+ibd-parser -f /path/to/table.ibd header --page 4
 
 # Dump records from an index page
-ibd-parser records /path/to/table.ibd --page 4
-
-# Show hex dump of a page
-ibd-parser hexdump /path/to/table.ibd --page 4 --length 128
-
-# Show summary of the file
-ibd-parser info /path/to/table.ibd
-
-# Additional options
-ibd-parser analyze /path/to/table.ibd --page 4 --format json  # Output in JSON format
-ibd-parser analyze /path/to/table.ibd --page 4 --verbose     # Show detailed information
+ibd-parser -f /path/to/table.ibd records --page 4
 ```
 
 ### Python API

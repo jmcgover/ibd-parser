@@ -2,7 +2,8 @@ import os
 import struct
 from typing import List, Dict, Any
 from .constants import PAGE_SIZE, PageType
-from .page import PageHeader, IndexHeader
+from .page.fil import FilHeader, FilTrailer
+from .page.index import IndexHeader
 from .record import Record
 from .utils import hex_dump
 
@@ -20,15 +21,17 @@ class IBDFileParser:
             directory.append(slot)
         return directory
 
-    def analyze_page(self, page_no: int) -> Dict[str, Any]:
+    def page_dump(self, page_no: int) -> Dict[str, Any]:
         with open(self.file_path, 'rb') as f:
             f.seek(page_no * PAGE_SIZE)
             page_data = f.read(PAGE_SIZE)
 
-            page_header = PageHeader.parse(page_data)
+            page_header = FilHeader.parse(page_data)
+            page_trailer = FilTrailer.parse(page_data)
             result = {
                 'page_no': page_no,
-                'header': page_header
+                'header': page_header,
+                'trailer': page_trailer
             }
 
             if page_header.page_type == PageType.FIL_PAGE_INDEX:

@@ -1,32 +1,7 @@
 from dataclasses import dataclass
 import struct
 from typing import Dict, Any, List
-from .constants import PageType, PAGE_SIZE, FIL_PAGE_DATA
-
-@dataclass
-class PageHeader:
-    checksum: int
-    page_no: int
-    previous_page: int
-    next_page: int
-    lsn: int
-    page_type: PageType
-    flush_lsn: int
-    space_id: int
-
-    @classmethod
-    def parse(cls, page_data: bytes) -> 'PageHeader':
-        header = struct.unpack('>IIIIQHQI', page_data[:38])
-        return cls(
-            checksum=header[0],
-            page_no=header[1],
-            previous_page=header[2],
-            next_page=header[3],
-            lsn=header[4],
-            page_type=PageType(header[5]),
-            flush_lsn=header[6],
-            space_id=header[7]
-        )
+from ..constants import PageType, PAGE_SIZE, FIL_PAGE_DATA
 
 @dataclass
 class IndexHeader:
