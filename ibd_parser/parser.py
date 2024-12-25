@@ -1,16 +1,17 @@
 import os
 import struct
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from .constants import PAGE_SIZE, PageType
 from .page.fil import FilHeader, FilTrailer
 from .page.index import IndexHeader
-from .record import Record
+from .record.record_parser import RecordParser
 from .utils import hex_dump
 
-class IBDFileParser:
-    def __init__(self, file_path: str):
+class IBDFileParser(object):
+    def __init__(self, file_path: str, schema: Optional[Dict[str, Any]] = None):
         self.file_path = file_path
         self.file_size = os.path.getsize(file_path)
+        self.schema = schema
 
     def parse_page_directory(self, page_data: bytes, n_dir_slots: int) -> List[int]:
         directory = []
@@ -43,7 +44,8 @@ class IBDFileParser:
                     index_header.n_dir_slots
                 )
                 result['page_directory'] = directory
-
-                # Parse records...
+                if self.schema:
+                    record_parser = RecordParser(page_data, index_header, directory, self.schema)
+                    result['records'] = record_parser.parse_records()
 
             return result

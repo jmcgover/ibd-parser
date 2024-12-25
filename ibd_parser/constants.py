@@ -32,3 +32,7 @@ class RecordType(IntEnum):
     CONVENTIONAL = 0
     INFIMUM = 1
     SUPREMUM = 2
+
+    @classmethod
+    def _missing_(cls, value):
+        return cls.CONVENTIONAL

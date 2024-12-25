@@ -1,0 +1,18 @@
+table_name: users
+fields:
+  - name: id
+    type: int
+    length: 4
+    primary_key: true
+  - name: name
+    type: varchar
+    length: var
+  - name: age
+    type: tinyint
+    length: 1
+  - name: email
+    type: varchar
+    length: var
+  - name: created_at
+    type: datetime
+    length: 4
