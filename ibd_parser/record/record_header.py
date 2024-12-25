@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import struct
 from typing import Dict, Any
 
-from ibd_parser.constants import RecordType
+from ibd_parser.constants import RecordType, PAGE_SIZE
 
 @dataclass
 class RecordHeader:

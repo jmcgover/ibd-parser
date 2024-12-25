@@ -2,6 +2,6 @@
 
 __version__ = "0.1.4"
 
-from .parser import IBDFileParser
+from ibd_parser.parser import IBDFileParser
 
 __all__ = ["IBDFileParser"]

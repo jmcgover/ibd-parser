@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import struct
 from typing import Dict, Any, List
-from ..constants import PageType
+from ibd_parser.constants import PageType
 
 
 @dataclass

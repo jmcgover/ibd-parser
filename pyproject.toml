@@ -41,7 +41,7 @@ ibd-parser = "ibd_parser.cli:main"
 "Source Code" = "https://github.com/likeyiyy/ibd-parser"
 
 [tool.setuptools]
-packages = ["ibd_parser"]
+packages = ["ibd_parser", "ibd_parser.page", "ibd_parser.record"]
 package-dir = {"" = "."}
 
 [project.optional-dependencies]

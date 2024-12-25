@@ -1,11 +1,11 @@
 import os
 import struct
-from typing import List, Dict, Any, Optional
-from .constants import PAGE_SIZE, PageType
-from .page.fil import FilHeader, FilTrailer
-from .page.index import IndexHeader
-from .record.record_parser import RecordParser
-from .utils import hex_dump
+from typing import Dict, Any, Optional, List
+from ibd_parser.constants import PAGE_SIZE, PageType
+from ibd_parser.utils import hex_dump
+from ibd_parser.page.fil import FilHeader, FilTrailer
+from ibd_parser.page.index import IndexHeader
+from ibd_parser.record.record_parser import RecordParser
 
 class IBDFileParser(object):
     def __init__(self, file_path: str, schema: Optional[Dict[str, Any]] = None):

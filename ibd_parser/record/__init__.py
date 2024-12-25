@@ -1,4 +1,4 @@
-"""InnoDB IBD File Parser."""
+"""Record parsing module."""
 
 __version__ = "0.1.3"
 

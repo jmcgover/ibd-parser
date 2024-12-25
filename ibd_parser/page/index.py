@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import struct
 from typing import Dict, Any, List
-from ..constants import PageType, PAGE_SIZE, FIL_PAGE_DATA
+from ibd_parser.constants import PageType, PAGE_SIZE, FIL_PAGE_DATA
 
 @dataclass
 class IndexHeader:
