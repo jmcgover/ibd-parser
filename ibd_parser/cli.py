@@ -24,6 +24,12 @@ def main():
         print(result['header'].format())
         print("\nfile trailer:")
         print(result['trailer'].format())
+        if 'page_header' in result:
+            print("\npage header:")
+            print(result['page_header'].format_as_string())
+        if 'page_directory' in result:
+            print("\npage directory:")
+            pprint(result['page_directory'])
 
 if __name__ == '__main__':
     main()

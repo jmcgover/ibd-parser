@@ -7,6 +7,7 @@ from ..constants import PageType, PAGE_SIZE, FIL_PAGE_DATA
 class IndexHeader:
     n_dir_slots: int
     heap_top: int
+    n_heap_format: int
     n_heap: int
     format: str
     garbage_offset: int
@@ -33,10 +34,10 @@ class IndexHeader:
             direction = "right"
         elif header[6] == 2:
             direction = "left"
-
         return cls(
             n_dir_slots=header[0],
             heap_top=header[1],
+            n_heap_format=n_heap_format,
             n_heap=n_heap,
             format="compact" if format_flag == 1 else "redundant",
             garbage_offset=header[3],
@@ -48,4 +49,24 @@ class IndexHeader:
             max_trx_id=header[9],
             level=header[10],
             index_id=header[11]
+        )
+
+    def format_as_string(self) -> str:
+        return (
+            "#<IndexHeader\n"
+            f" n_dir_slots={self.n_dir_slots},\n"
+            f" heap_top={self.heap_top},\n"
+            f" n_heap_format={self.n_heap_format},\n"
+            f" n_heap={self.n_heap},\n"
+            f" format={self.format},\n"
+            f" garbage_offset={self.garbage_offset},\n"
+            f" garbage_size={self.garbage_size},\n"
+            f" last_insert_offset={self.last_insert_offset},\n"
+            f" direction={self.direction},\n"
+            f" n_direction={self.n_direction},\n"
+            f" n_recs={self.n_recs},\n"
+            f" max_trx_id={self.max_trx_id},\n"
+            f" level={self.level},\n"
+            f" index_id={self.index_id}\n"
+            ">"
         )

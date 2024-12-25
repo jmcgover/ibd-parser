@@ -36,13 +36,13 @@ class IBDFileParser:
 
             if page_header.page_type == PageType.FIL_PAGE_INDEX:
                 index_header = IndexHeader.parse(page_data)
-                result['index_header'] = index_header
+                result['page_header'] = index_header
 
                 directory = self.parse_page_directory(
                     page_data,
                     index_header.n_dir_slots
                 )
-                result['directory'] = directory
+                result['page_directory'] = directory
 
                 # Parse records...
 
