@@ -65,6 +65,7 @@ class RecordParser(object):
             logger.info("Initialize parsed data")
             parsed_data = Record(header=header, trx_id=0, rollback_pointer=0, data={})
             # 解析固定长度字段
+            logger.warning(f"{len(page_data[data_offset:data_offset+4])=}")
             id_value = struct.unpack('>I', page_data[data_offset:data_offset+4])[0]
             id_value = id_value & ~0x80000000
             data_offset += 4
