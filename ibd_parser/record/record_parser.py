@@ -7,6 +7,9 @@ from ibd_parser.page.index import IndexHeader
 from ibd_parser.record.record_header import RecordHeader
 from ibd_parser.utils import parse_datetime
 
+import logging
+logger = logging.get_logger(__name__)
+
 @dataclass
 class Record:
     header: RecordHeader
@@ -38,6 +41,7 @@ class RecordParser(object):
         records = []
 
         # Parse system records
+        logger.info("Parse system records")
         infimum = RecordHeader.parse(self.page_data, self.page_directory[0])
         supremum = RecordHeader.parse(self.page_data, self.page_directory[-1])
         # Traverse the record list starting from Infimum
@@ -51,6 +55,7 @@ class RecordParser(object):
 
     def parse_record(self, page_data: bytes, offset: int) -> Record:
         """Parse a record using the provided schema"""
+        logger.info("Parse a record using the provided schema")
         data_offset = offset
         header = RecordHeader.parse(page_data, data_offset)
         header_offset = data_offset - 5
@@ -58,6 +63,7 @@ class RecordParser(object):
 
         try:
             # Initialize parsed data
+            logger.info("Initialize parsed data")
             parsed_data = Record(header=header, trx_id=0, rollback_pointer=0, data={})
             # 解析固定长度字段
             id_value = struct.unpack('>I', page_data[data_offset:data_offset+4])[0]
@@ -66,6 +72,7 @@ class RecordParser(object):
             parsed_data.data['id'] = id_value
 
             # Parse fixed fields (trx_id and rollback_pointer)
+            logger.info("Parse fixed fields")
             trx_id_bytes = page_data[data_offset:data_offset+6]
             trx_id_bytes = b'\x00\x00' + trx_id_bytes
             trx_id_value = struct.unpack('>Q', trx_id_bytes)[0]
@@ -129,4 +136,5 @@ class RecordParser(object):
             return parsed_data
 
         except Exception as e:
+            logger.error(f"Caught {e.__class__.__name__}: {e}")
             return Record(header=header, trx_id=0, rollback_pointer=0, data={}, error=str(e))
