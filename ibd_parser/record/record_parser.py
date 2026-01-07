@@ -86,6 +86,7 @@ class RecordParser(object):
             parsed_data.rollback_pointer = rollback_pointer_value
 
             # Parse null flags and variable-length field lengths
+            logger.info("Parse null flags and variable-length field lengths")
             null_flags_offset = header_offset - 1
             null_flags = page_data[null_flags_offset]
             var_lens = []
@@ -101,6 +102,7 @@ class RecordParser(object):
                         null_flags_offset -= 2
 
             # Parse user-defined fields based on schema
+            logger.info("Parse user-defined fields based on schema")
             var_len_index = 0
             for field in self.schema['fields']:
                 field_name = field['name']
@@ -110,10 +112,12 @@ class RecordParser(object):
                     continue
 
                 if field_type == 'int':
+                    logger.info("field_type == 'int'")
                     value = struct.unpack('>I', page_data[data_offset:data_offset+field_length])[0]
                     value = value & ~0x80000000
                     data_offset += field_length
                 elif field_type == 'varchar':
+                    logger.info("field_type == 'varchar'")
                     var_len = var_lens[var_len_index]
                     value = page_data[data_offset:data_offset+var_len].decode('utf8')
                     data_offset += var_len
@@ -121,9 +125,11 @@ class RecordParser(object):
                         data_offset += 1
                     var_len_index += 1
                 elif field_type == 'tinyint':
+                    logger.info("field_type == 'tinyint'")
                     value = page_data[data_offset] - 128
                     data_offset += field_length
                 elif field_type == 'datetime':
+                    logger.info("field_type == 'datetime'")
                     datetime_bytes = page_data[data_offset:data_offset+field_length]
                     value = parse_datetime(struct.unpack('>I', datetime_bytes)[0])
                     data_offset += field_length
@@ -135,5 +141,5 @@ class RecordParser(object):
             return parsed_data
 
         except Exception as e:
-            logger.error(f"Caught {e.__class__.__name__}: {e}")
+            logger.exception(e)
             return Record(header=header, trx_id=0, rollback_pointer=0, data={}, error=str(e))
