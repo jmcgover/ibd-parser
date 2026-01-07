@@ -114,6 +114,7 @@ class RecordParser(object):
 
                 if field_type == 'int':
                     logger.info("field_type == 'int'")
+                    logger.warning(f"{len(page_data[data_offset:data_offset+field_length])=}")
                     value = struct.unpack('>I', page_data[data_offset:data_offset+field_length])[0]
                     value = value & ~0x80000000
                     data_offset += field_length
