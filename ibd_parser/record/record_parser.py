@@ -7,8 +7,7 @@ from ibd_parser.page.index import IndexHeader
 from ibd_parser.record.record_header import RecordHeader
 from ibd_parser.utils import parse_datetime
 
-import logging
-logger = logging.getLogger(__name__)
+from loguru import logger
 
 @dataclass
 class Record:

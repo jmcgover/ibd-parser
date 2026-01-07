@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "jmcgover-ibd-parser"
-version = "0.1.6"
+version = "0.1.7"
 authors = [
   { name="likeyiyy", email="likeyiyying@gmail.com" },
 ]
@@ -16,6 +16,7 @@ keywords = ["mysql", "innodb", "ibd", "parser", "database"]
 dependencies = [
     "pyyaml>=6.0",
     "tabulate>=0.9.0"
+    "loguru>=0.7.3"
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
