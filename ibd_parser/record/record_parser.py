@@ -8,7 +8,7 @@ from ibd_parser.record.record_header import RecordHeader
 from ibd_parser.utils import parse_datetime
 
 import logging
-logger = logging.get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 @dataclass
 class Record:
