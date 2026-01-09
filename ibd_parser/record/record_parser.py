@@ -54,7 +54,7 @@ class RecordParser(object):
 
     def parse_record(self, page_data: bytes, offset: int) -> Record:
         """Parse a record using the provided schema"""
-        logger.info("Parse a record using the provided schema")
+        logger.info("PARSE A RECORD USING THE PROVIDED SCHEMA")
         data_offset = offset
         header = RecordHeader.parse(page_data, data_offset)
         header_offset = data_offset - 5
@@ -62,7 +62,7 @@ class RecordParser(object):
 
         try:
             # Initialize parsed data
-            logger.info("Initialize parsed data")
+            logger.info("INITIALIZE PARSED DATA")
             parsed_data = Record(header=header, trx_id=0, rollback_pointer=0, data={})
             # 解析固定长度字段
             logger.warning(f"{len(page_data[data_offset:data_offset+4])=}")
@@ -72,7 +72,7 @@ class RecordParser(object):
             parsed_data.data['id'] = id_value
 
             # Parse fixed fields (trx_id and rollback_pointer)
-            logger.info("Parse fixed fields")
+            logger.info("PARSE FIXED FIELDS")
             trx_id_bytes = page_data[data_offset:data_offset+6]
             trx_id_bytes = b'\x00\x00' + trx_id_bytes
             trx_id_value = struct.unpack('>Q', trx_id_bytes)[0]
@@ -87,7 +87,7 @@ class RecordParser(object):
             parsed_data.rollback_pointer = rollback_pointer_value
 
             # Parse null flags and variable-length field lengths
-            logger.info("Parse null flags and variable-length field lengths")
+            logger.info("PARSE NULL FLAGS AND VARIABLE-LENGTH FIELD LENGTHS")
             null_flags_offset = header_offset - 1
             null_flags = page_data[null_flags_offset]
             var_lens = []
@@ -103,7 +103,7 @@ class RecordParser(object):
                         null_flags_offset -= 2
 
             # Parse user-defined fields based on schema
-            logger.info("Parse user-defined fields based on schema")
+            logger.info("PARSE USER-DEFINED FIELDS BASED ON SCHEMA")
             var_len_index = 0
             for field in self.schema['fields']:
                 field_name = field['name']
