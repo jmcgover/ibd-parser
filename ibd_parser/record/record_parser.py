@@ -123,6 +123,7 @@ class RecordParser(object):
                     var_len = var_lens[var_len_index]
                     value = page_data[data_offset:data_offset+var_len].decode('utf8')
                     data_offset += var_len
+                    logger.info(f"page_data[{data_offset}] = 0x{page_data[data_offset]:02x}")
                     if page_data[data_offset] == 0x99:
                         data_offset += 1
                     var_len_index += 1
