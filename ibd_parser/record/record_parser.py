@@ -106,6 +106,7 @@ class RecordParser(object):
             logger.info("PARSE USER-DEFINED FIELDS BASED ON SCHEMA")
             var_len_index = 0
             for field in self.schema['fields']:
+                logger.info("=" * 40)
                 field_name = field['name']
                 field_type = field['type']
                 field_length = field['length']
