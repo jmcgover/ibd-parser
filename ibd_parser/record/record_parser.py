@@ -113,6 +113,7 @@ class RecordParser(object):
                 logger.info(f"{field_name=}")
                 logger.info(f"{field_length=}")
                 if field.get('primary_key', False):
+                    logger.warning(f"Skipping because {field.get('primary_key')=}")
                     continue
 
                 if field_type == 'int':
