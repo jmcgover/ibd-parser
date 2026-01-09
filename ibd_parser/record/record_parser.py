@@ -109,6 +109,8 @@ class RecordParser(object):
                 field_name = field['name']
                 field_type = field['type']
                 field_length = field['length']
+                logger.info(f"{field_name=}")
+                logger.info(f"{field_length=}")
                 if field.get('primary_key', False):
                     continue
 
@@ -121,8 +123,8 @@ class RecordParser(object):
                 elif field_type == 'varchar':
                     logger.info("field_type == 'varchar'")
                     var_len = var_lens[var_len_index]
+                    logger.info(f"{var_len=}")
                     logger.info(f"Raw value: '{page_data[data_offset:data_offset+var_len]}'")
-                    logger.info(f"ASCII value: '{page_data[data_offset:data_offset+var_len].decode('ascii')}'")
                     value = page_data[data_offset:data_offset+var_len].decode('utf8')
                     data_offset += var_len
                     logger.info(f"page_data[{data_offset}] = 0x{page_data[data_offset]:02x}")
