@@ -122,6 +122,7 @@ class RecordParser(object):
                     logger.info("field_type == 'varchar'")
                     var_len = var_lens[var_len_index]
                     logger.info(f"Raw value: '{page_data[data_offset:data_offset+var_len]}'")
+                    logger.info(f"ASCII value: '{page_data[data_offset:data_offset+var_len].decode('ascii')}'")
                     value = page_data[data_offset:data_offset+var_len].decode('utf8')
                     data_offset += var_len
                     logger.info(f"page_data[{data_offset}] = 0x{page_data[data_offset]:02x}")

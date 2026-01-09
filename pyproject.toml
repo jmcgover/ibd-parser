@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "jmcgover-ibd-parser"
-version = "0.1.12"
+version = "0.1.13"
 authors = [
   { name="likeyiyy", email="likeyiyying@gmail.com" },
 ]
